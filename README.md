@@ -1,12 +1,18 @@
 # Projet Dataviz
 
-## Installation
+## Run the project
+
+```bash
+docker run milou666/r-project:latest -P 4000:4000
+```
+
+Then visit [http://localhost:4000](http://localhost:4000)
+
+## Installation for development
 
 Launch R and install
 
-```R
-if (!require("BiocManager", quietly = TRUE))
-    install.packages("BiocManager")
-
-BiocManager::install("M3C")
+```bash
+Rscript dependencies.R
+Rscript app.R
 ```

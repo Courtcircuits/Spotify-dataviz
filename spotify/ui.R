@@ -21,34 +21,40 @@ years <- unique(top50$year)
 
 # Define UI for app that draws a histogram ----
 ui <- page_sidebar(
-  # App title ----
-  title = "What makes a song popular ?",
-  # Sidebar panel for inputs ----
-  sidebar = sidebar(
-    # Input: Slider for the number of bins ----
-    sliderInput(
-      inputId = "sampleSize",
-      label = "Sample Size:",
-      min = 10, max = top50 %>% nrow(),
-      value = 10
+    # App title ----
+    title = "What makes a song popular ?",
+    # Sidebar panel for inputs ----
+    sidebar = sidebar(
+        # Input: Slider for the number of bins ----
+        sliderInput(
+            inputId = "sampleSize",
+            label = "Sample Size:",
+            min = 10, max = top50 %>% nrow(),
+            value = 10
+        ),
+        checkboxGroupInput(
+            inputId = "years",
+            label = "Années sélectionnées:",
+            choices = years,
+            selected = years
+        )
     ),
-    checkboxGroupInput(
-      inputId = "years",
-      label = "Années sélectionnées:",
-      choices = years,
-      selected = years
+    # Output: Histogram ----
+    tabsetPanel(
+        tabPanel(
+            "TSNE",
+            plotlyOutput("tsnePlot")
+        ),
+        tabPanel("Modalities against Popularity", fluidRow(
+            column(6, plotOutput("dotPlot")),
+            column(6, plotOutput("dotPlot2"))
+        )),
+        tabPanel(
+            "Trends over the years",
+            column(12, plotOutput("timeSeries")),
+            column(12, plotOutput("timeSeriesDuration")),
+            column(12, plotOutput("timeSeriesTempo")),
+            column(12, plotOutput("timeSeriesMultiModals")),
+        )
     )
-  ),
-  # Output: Histogram ----
-  tabsetPanel(
-    tabPanel("TSNE", plotlyOutput("tsnePlot")),
-    tabPanel("Modalities against Popularity", fluidRow(
-      column(6, plotOutput("dotPlot")),
-      column(6, plotOutput("dotPlot2"))
-    )),
-    tabPanel("Happiness histogram", plotOutput("happyHistogram")),
-    tabPanel("Trends over the years", layout_columns(
-      column(6, plotOutput("timeSeries"))
-    ) )
-  )
 )

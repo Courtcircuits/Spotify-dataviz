@@ -9,4 +9,5 @@ COPY dependencies.R .
 RUN Rscript dependencies.R
 COPY . .
 
+EXPOSE 4000
 CMD ["Rscript", "app.R"]

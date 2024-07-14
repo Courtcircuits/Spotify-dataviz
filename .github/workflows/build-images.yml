@@ -25,6 +25,8 @@ jobs:
           context: .
           file: ./Dockerfile
           push: true
-          tags: ${{ secrets.DOCKER_USERNAME }}/r-project:${{ env.TAG }}
-          cache-from: type=registry,ref=${{ secrets.DOCKER_USERNAME }}/r-project:${{ env.TAG }}
+          tags: |
+            ${{ secrets.DOCKER_USERNAME }}/r-project:${{ env.TAG }}
+            ${{ secrets.DOCKER_USERNAME }}/r-project:latest
+          cache-from: type=registry,ref=${{ secrets.DOCKER_USERNAME }}/r-project:latest
           cache-to: type=inline
