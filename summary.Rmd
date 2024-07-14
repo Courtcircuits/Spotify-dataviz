@@ -1,0 +1,18 @@
+---
+title: "Project - Datavisualisation - Spotify"
+author: "Tristan Radulescu"
+date: "`r Sys.Date()`"
+output: pdf_document
+---
+# Load data
+
+```{r load-data}
+library(here)
+library(readr)
+top50 <- read_csv(here("data", "playlist_2010to2023.csv"))
+head(top50)
+mean(top50$track_popularity)
+top50$track_name[which.max(top50$track_popularity)]
+top50$artist_name[which.max(top50$track_popularity)]
+top50$year[which.max(top50$track_popularity)]
+```
